@@ -1,3 +1,5 @@
+(in-package :megra)
+
 ;; stateful parameter modifier ... (yes, really ...)
 ;; every one of those needs an "evaluate" function ...
 (defclass param-mod-object ()

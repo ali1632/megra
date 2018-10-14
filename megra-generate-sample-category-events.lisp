@@ -150,7 +150,7 @@
 	(count 0)
 	file)
     (loop for path in
-	 (cl-fad::list-directory (concatenate 'string cm::*sample-root*
+	 (cl-fad::list-directory (concatenate 'string *sample-root*
 					      (string-downcase categ)))
        do (cffi::with-foreign-object (sfinfo '(:struct cl-libsndfile::SF_INFO))
 	    (setf file
@@ -174,7 +174,7 @@
 
 ;; create an event constructor for each sample category ... 
 (loop for path in
-     (cl-fad::list-directory cm::*sample-root*)
+     (cl-fad::list-directory *sample-root*)
    when (not (is-file path))
    do (let ((dirname (car (last (pathname-directory path)))))
 	(when (and (not (equal dirname "IR"))

@@ -1,3 +1,5 @@
+(in-package :megra)
+
 ;; generic event-processor
 (defclass event-processor ()
   ((pull-events)

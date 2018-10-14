@@ -1,3 +1,5 @@
+(in-package :megra)
+
 (defun clear ()
   ;; first of all stop all events already passed to incudine ...
   (incudine::flush-pending)

@@ -1,4 +1,5 @@
 (in-package :megra)
+
 ;; handler method for grain event, incudine
 (defmethod handle-grain-event-incu ((g grain-event) &key)
   (unless (gethash (event-sample-location g) *incu-buffer-directory*)

@@ -1,3 +1,5 @@
+(in-package :megra)
+
 ;; EVENT DEFINITIONS ...
 ;; the root event is defined in megra-event-base ...
 
@@ -450,29 +452,29 @@
 (defmethod initialize-instance :after ((g grain-event) &key)
   (setf (grain-sample-location g)
 	(concatenate 'string *sample-root*
-		     (grain-sample-folder g) "/" (grain-sample-file g) "." cm::*sample-type* )))
+		     (grain-sample-folder g) "/" (grain-sample-file g) "." *sample-type* )))
 
 ;; additional method after grain event initialization ...
 (defmethod initialize-instance :after ((g grain-event-4ch) &key)
   (setf (grain-4ch-sample-location g)
 	(concatenate 'string *sample-root*
-		     (grain-4ch-sample-folder g) "/" (grain-4ch-sample-file g) "." cm::*sample-type* )))
+		     (grain-4ch-sample-folder g) "/" (grain-4ch-sample-file g) "." *sample-type* )))
 
 ;; additional method after grain event initialization ...
 (defmethod initialize-instance :after ((g grain-event-8ch) &key)
   (setf (grain-8ch-sample-location g)
 	(concatenate 'string *sample-root*
-		     (grain-8ch-sample-folder g) "/" (grain-8ch-sample-file g) "." cm::*sample-type* )))
+		     (grain-8ch-sample-folder g) "/" (grain-8ch-sample-file g) "." *sample-type* )))
 
 (defmethod initialize-instance :after ((g grain-event-nores) &key)
   (setf (nores-sample-location g)
 	(concatenate 'string *sample-root*
-		     (nores-sample-folder g) "/" (nores-sample-file g) "." cm::*sample-type*)))
+		     (nores-sample-folder g) "/" (nores-sample-file g) "." *sample-type*)))
 
 (defmethod initialize-instance :after ((g grain-event-24db) &key)
   (setf (twofourdb-sample-location g)
 	(concatenate 'string *sample-root*
-		     (twofourdb-sample-folder g) "/" (twofourdb-sample-file g) "." cm::*sample-type*)))
+		     (twofourdb-sample-folder g) "/" (twofourdb-sample-file g) "." *sample-type*)))
 
 ;; end grain-event ...
 

@@ -1,4 +1,4 @@
-;;(require 'closer-mop)
+(in-package :megra)
 
 ;; the slots of the basic event class should of course not be overwritten ...
 ;; manual makeshift solution

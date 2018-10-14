@@ -1,3 +1,5 @@
+(in-package :megra)
+
 (defparameter *max-label-length* 30)
 
 ;; land of lisp substrate ... 

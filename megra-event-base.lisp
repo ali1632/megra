@@ -1,3 +1,5 @@
+(in-package :megra)
+
 ;; the atomic units of music - events and transitions ...
 (defclass event ()
   ((source :accessor event-source)
@@ -140,7 +142,6 @@
 ;; creepy macro to faciliate defining events
 ;; defines the event class, the language constructor, and the
 ;; value accessor function ...
-(in-package :megra)
 (defmacro define-event (&key
 			  short-name
 			  long-name
@@ -190,9 +191,9 @@
 	 (parent-keyword-pairs (interleave parent-keywords parent-parameter-names))
 	 (class-name-list (make-list (length parameter-names)
 				     :initial-element class-name)))
-    `(progn
+    `(progn       
        ;; define the base class
-       (defclass ,class-name ,parent-events ())
+       (defclass megra::,class-name ,parent-events ())
        ;; add the parameter slots with accessor ...
        (loop for param in ',parameters	    
 	  for i from 0 to (length ',parameters)
@@ -209,7 +210,7 @@
 	       (setf (gethash slot-name *parameter-limits*)
 		     (list (nth 3 param) (nth 4 param)))))
        ;; define the constructor function
-       (defun ,short-name (,@direct-parameters
+       (defun megra::,short-name (,@direct-parameters
 				 &key
 				   ,@(mapcar #'list keyword-parameter-names
 					     keyword-parameter-defaults)
@@ -233,11 +234,11 @@
 	   (progn ,@(mapcar #'create-accessor
 			    class-name-list accessor-names parameter-names)))
        ;; produce event handler method ...
-       (defmethod handle-event ((evt ,class-name) timestamp &key)
+       (defmethod megra::handle-event ((evt ,class-name) timestamp &key)
 	 (handler-case ,handler
 	   (simple-error (e) (incudine::msg error "~D" e))))
        ;; assemble printer method ...              
-       (defmethod print-event ((evt ,class-name) &key)
+       (defmethod megra::print-event ((evt ,class-name) &key)
 	 (string-downcase (format nil "(~a ~{~a~}~{~a~}~{~a~}~a~a)"
 		 ',short-name
 		 (mapcar #'(lambda (par-name direct-accs-name)
@@ -290,9 +291,9 @@
 	 (keywords (mapcar #'(lambda (x) (intern (format nil "~A" x) "KEYWORD")) parameter-names))	 
 	 (keyword-pairs (interleave keywords parameter-names))	 
 	)
-    `(progn
+    `(progn    
        ;; define the constructor function
-       (defun ,alias (,@direct-parameters
+       (defun megra::,alias (,@direct-parameters
 			   &key
 			     ,@(mapcar #'list keyword-parameter-names
 				       keyword-parameter-defaults)			     
@@ -319,7 +320,7 @@
     (loop for path in
        ;; shuffle list, so that we won't get the same thing
        ;; everytime no keywords are provided
-	 (shuffle-list (cl-fad::list-directory (concatenate 'string cm::*sample-root*
+	 (shuffle-list (cl-fad::list-directory (concatenate 'string *sample-root*
 							    (string-downcase categ))))
        do (let ((cur-score (keyword-match-score keywords (pathname-name path))))
 	    (when (eql cur-score 1.0)
